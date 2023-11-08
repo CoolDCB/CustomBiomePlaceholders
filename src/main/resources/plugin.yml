@@ -1,6 +1,6 @@
-name: CustomBiomePlaceholder
+name: CustomBiomePlaceholders
 version: '${version}'
-main: me.dave.custombiomeplaceholder.CustomBiomePlaceholder
+main: me.dave.custombiomeplaceholders.CustomBiomePlaceholders
 api-version: '1.20'
 depend:
   - PlaceholderAPI

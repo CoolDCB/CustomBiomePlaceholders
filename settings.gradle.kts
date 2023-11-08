@@ -1,1 +1,1 @@
-rootProject.name = "CustomBiomePlaceholder"
+rootProject.name = "CustomBiomePlaceholders"

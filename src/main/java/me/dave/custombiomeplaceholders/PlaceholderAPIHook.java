@@ -1,4 +1,4 @@
-package me.dave.custombiomeplaceholder;
+package me.dave.custombiomeplaceholders;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.Bukkit;
@@ -9,9 +9,9 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 public class PlaceholderAPIHook extends PlaceholderExpansion {
-    private final CustomBiomePlaceholder plugin;
+    private final CustomBiomePlaceholders plugin;
 
-    public PlaceholderAPIHook(CustomBiomePlaceholder plugin) {
+    public PlaceholderAPIHook(CustomBiomePlaceholders plugin) {
         this.plugin = plugin;
     }
 

@@ -1,8 +1,8 @@
-package me.dave.custombiomeplaceholder;
+package me.dave.custombiomeplaceholders;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class CustomBiomePlaceholder extends JavaPlugin {
+public final class CustomBiomePlaceholders extends JavaPlugin {
     private PlaceholderAPIHook placeholderAPIHook = null;
 
     @Override
