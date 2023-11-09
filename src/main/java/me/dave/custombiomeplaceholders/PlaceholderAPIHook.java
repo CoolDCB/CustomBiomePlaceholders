@@ -4,7 +4,6 @@ import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -17,30 +16,20 @@ public class PlaceholderAPIHook extends PlaceholderExpansion {
 
     public String onPlaceholderRequest(Player player, @NotNull String params) {
         if (player != null) {
-            if (params.equals("biome")) {
-                return getBiomeName(player.getLocation());
-            }
-        }
-
-        String[] args = params.split("_");
-        if (args.length == 5) {
-            if (args[0].equals("biome")) {
-                World world = Bukkit.getWorld(args[1]);
-                if (world == null) {
-                    return null;
+            switch (params) {
+                case "biome_formatted" -> {
+                    NamespacedKey biomeKey = getBiomeNamespacedKey(player.getLocation());
+                    return format(biomeKey.getKey()) + ": " + format(biomeKey.getNamespace());
                 }
-
-                Location location;
-                try {
-                    int x = Integer.parseInt(args[2]);
-                    int y = Integer.parseInt(args[3]);
-                    int z = Integer.parseInt(args[4]);
-                    location = new Location(world, x, y, z);
-                } catch (NumberFormatException e) {
-                    return null;
+                case "biome_name" -> {
+                    return format(getBiomeNamespacedKey(player.getLocation()).getNamespace());
                 }
-
-                return getBiomeName(location);
+                case "biome_namespace" -> {
+                    return format(getBiomeNamespacedKey(player.getLocation()).getKey());
+                }
+                case "biome_raw" -> {
+                    return getBiomeNamespacedKey(player.getLocation()).asString();
+                }
             }
         }
 
@@ -67,8 +56,18 @@ public class PlaceholderAPIHook extends PlaceholderExpansion {
         return this.plugin.getDescription().getVersion();
     }
 
-    private static String getBiomeName(Location location) {
-        NamespacedKey key = Bukkit.getUnsafe().getBiomeKey(location.getWorld(), location.getBlockX(), location.getBlockY(), location.getBlockZ());
-        return key.getKey().toUpperCase();
+    private static NamespacedKey getBiomeNamespacedKey(Location location) {
+        return Bukkit.getUnsafe().getBiomeKey(location.getWorld(), location.getBlockX(), location.getBlockY(), location.getBlockZ());
+    }
+
+    private String format(String string) {
+        String[] words = string.split(" ");
+
+        StringBuilder stringBuilder = new StringBuilder(string);
+        for (String word : words) {
+            stringBuilder.append(word.substring(0, 1).toUpperCase()).append(word.substring(1));
+        }
+
+        return stringBuilder.toString();
     }
 }
