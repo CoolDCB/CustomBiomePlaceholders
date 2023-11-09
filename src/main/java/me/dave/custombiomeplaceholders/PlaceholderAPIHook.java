@@ -19,13 +19,13 @@ public class PlaceholderAPIHook extends PlaceholderExpansion {
             switch (params) {
                 case "biome_formatted" -> {
                     NamespacedKey biomeKey = getBiomeNamespacedKey(player.getLocation());
-                    return format(biomeKey.getKey()) + ": " + format(biomeKey.getNamespace());
+                    return format(biomeKey.getNamespace()) + ": " + format(biomeKey.getKey());
                 }
                 case "biome_name" -> {
-                    return format(getBiomeNamespacedKey(player.getLocation()).getNamespace());
+                    return format(getBiomeNamespacedKey(player.getLocation()).getKey());
                 }
                 case "biome_namespace" -> {
-                    return format(getBiomeNamespacedKey(player.getLocation()).getKey());
+                    return format(getBiomeNamespacedKey(player.getLocation()).getNamespace());
                 }
                 case "biome_raw" -> {
                     return getBiomeNamespacedKey(player.getLocation()).asString();
@@ -63,7 +63,7 @@ public class PlaceholderAPIHook extends PlaceholderExpansion {
     private String format(String string) {
         String[] words = string.split(" ");
 
-        StringBuilder stringBuilder = new StringBuilder(string);
+        StringBuilder stringBuilder = new StringBuilder();
         for (String word : words) {
             stringBuilder.append(word.substring(0, 1).toUpperCase()).append(word.substring(1));
         }
